@@ -1,0 +1,58 @@
+﻿@model Job_Board.ViewModel.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+    ViewData["style"] = "background-color:rgba(0,29,56,0.8);";
+}
+
+
+<div class="featured_candidates_area candidate_page_padding">
+    <div class="container" style="margin-top:5%;">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6" style="background: white;padding: 30px;box-shadow: 0px 15px 12px 0px #cacaca;">
+                <h4 style="text-align:center;font-family: auto;font-size: 25px;margin-bottom:16px;">Create New Account</h4>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <form asp-action="Register">
+                    <div class="row" style="margin-bottom:16px;">
+                        <div class="col">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <input asp-for="FirstName" class="form-control" placeholder="First name" />
+                            <span asp-validation-for="FirstName" class="text-danger" style="font-size:14px"></span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <input asp-for="LastName" class="form-control" placeholder="Last name" />
+                            <span asp-validation-for="LastName" class="text-danger" style="font-size:14px"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" placeholder="Email address" />
+                        <span asp-validation-for="Email" class="text-danger" style="font-size:14px"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" placeholder="Passworod" />
+                        <span asp-validation-for="Password" class="text-danger" style="font-size:14px"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmPassword" class="control-label"></label>
+                        <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm password" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger" style="font-size:14px"></span>
+                    </div>
+                    <label>Who are you?</label>
+                    <select class="form-select" asp-for="Role">
+                        <option selected disabled>Select Role</option>
+                        <option value="Recruiter">Recruiter</option>
+                        <option value="Developer">Developer</option>
+                    </select>
+                    <div class="form-group">
+                        <input type="submit" value="Register" class="btn btn-success" style="margin-top:20px;" />
+                    </div>
+                </form>
+                <a asp-action="Login" style="font-size: 10px;color: gray; text-decoration:underline;">Already Have An Account?</a>
+            </div>
+        </div>
+    </div>
+</div>

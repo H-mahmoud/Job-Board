@@ -1,0 +1,119 @@
+﻿@model IEnumerable<PopolarCategoriesViewModel>;
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- slider_area_start -->
+<div class="slider_area">
+    <div class="single_slider  d-flex align-items-center slider_bg_1">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-6">
+                    <div class="slider_text">
+                        <h5 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".2s">@ViewBag.TotalJobs+ Jobs listed</h5>
+                        <h3 class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".3s">Find your Dream Job</h3>
+                        <p class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".4s">We provide online instant cash loans with quick approval that suit your term length</p>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+
+                            <div class="sldier_btn wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
+                                <a href="/Account/Register" class="boxed-btn3">Join us</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ilstration_img wow fadeInRight d-none d-lg-block text-right" data-wow-duration="1s" data-wow-delay=".2s">
+        <img src="~/img/banner/illustration.png" alt="">
+    </div>
+</div>
+<!-- slider_area_end -->
+<!-- catagory_area -->
+<div class="catagory_area">
+    <div class="container">
+        <form asp-action="Search" asp-controller="Job" method="get">
+            <div class="row cat_search">
+                <div class="col-lg-3 col-md-4">
+                    <div class="single_input">
+                        <input type="text" name="_search" placeholder="Search keyword">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <div class="single_input">
+                        <select class="wide" name="_category">
+                            <option data-display="Category"></option>
+                            @for (int i = 0; i < ViewBag.Categories.Count; i++)
+                            {
+                                <option value="@ViewBag.Categories[i].Name">@ViewBag.Categories[i].Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <div class="single_input">
+                        <select class="wide" name="_jobnature">
+                            <option data-display="Job Nature"></option>
+                            <option value="1">Full time</option>
+                            <option value="2">Part time</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <div class="job_btn">
+                        <button class="boxed-btn3" type="submit">Find Job</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--/ catagory_area -->
+<!-- popular_catagory_area_start  -->
+<div class="popular_catagory_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section_title mb-40">
+                    <h3>Popolar Categories</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var category in Model)
+            {
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory">
+                        <a href="/Job/Search?_category=@category.Name"><h4>@category.Name</h4></a>
+                        <p> <span>@category.Count</span> Available jobs</p>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<!-- popular_catagory_area_end  -->
+<!-- job_searcing_wrap  -->
+<div class="job_searcing_wrap overlay">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 offset-lg-1 col-md-6">
+                <div class="searching_text">
+                    <h3>Looking for a Job?</h3>
+                    <p>We provide online instant cash loans with quick approval </p>
+                    <a href="/Job" class="boxed-btn3">Browse Job</a>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1 col-md-6">
+                <div class="searching_text">
+                    <h3>Looking for Developers?</h3>
+                    <p>We provide online instant cash loans with quick approval </p>
+                    <a href="/Job/Create" class="boxed-btn3">Post a Job</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- job_searcing_wrap end  -->

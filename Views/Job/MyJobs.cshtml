@@ -1,0 +1,141 @@
+﻿@model IEnumerable<MyJobsViewModel>
+
+@{
+    ViewData["Title"] = "Posted Jobs";
+    ViewData["style"] = "background-color:rgba(0,29,56,0.8);";
+}
+
+<!-- job_listing_area_start  -->
+<div class="job_listing_area plus_padding" style="margin-top:10%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="job_lists m-0">
+                    <div class="row">
+                        @if (Model.Count() == 0)
+                        {
+                            <div class="col-lg-12" style="text-align:center"> <h4>Your Bublished Jobs Will Appear Here.</h4> </div>
+                        }
+
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-lg-12 col-md-12">
+                                <div class="single_jobs white-bg d-flex justify-content-between">
+                                    <div class="jobs_left d-flex align-items-center">
+                                        <div class="thumb" style="padding:0px;">
+                                            <img src="@item.ProfilePicture" alt="" style="width: 80px; height: 80px;">
+                                        </div>
+                                        <div class="jobs_conetent">
+                                            <a href="/Job/Details/@item.Id"><h4>@item.Title.Substring(0, (item.Title.Length > 20 ? 20 : item.Title.Length))</h4></a>
+                                            <div class="links_locat d-flex align-items-center">
+                                                <div class="location">
+                                                    <p> <i class="fa fa-map-marker"></i> @item.Location</p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-clock-o"></i> @(item.JobNature == Job_Board.Models.enums.JobNature.FullTime? "Full TIme": "Part TIme")</p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-list-alt"></i> @if (@item.Category != null)@item.Category</p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-users"></i> @item.Count Candidates </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="jobs_right">
+                                        <div class="apply_now row">
+                                            <form asp-action="apply" class="js-delete-post" data-post-id="@item.Id" style="margin-right:5px;">
+                                                <button type="submit" class="boxed-btn2" style="color:white;"> <i class="fa fa-trash-o"></i></button>
+                                            </form>
+                                            <form>
+                                                <a href="/Job/Candidates/@item.Id" class="boxed-btn4">Candidates</a>
+                                            </form>
+                                        </div>
+                                        <div class="date" style="color: #AAB1B7;">
+                                            <p><i class="fa fa-calendar" style="margin-right:7px"></i> @item.PublishedAt.ToString("dd/mm/yyyy HH:mm") </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="pagination_wrap">
+                                <ul>
+                                    <li><a asp-action="MyJobs" asp-route-id="@ViewBag.Paginator.prevPage"> <i class="ti-angle-left"></i> </a></li>
+                                    <li><a asp-action="MyJobs" asp-route-id="@ViewBag.Paginator.firstPage"><span>@ViewBag.Paginator.firstPage</span></a></li>
+                                    @for (int i = ViewBag.Paginator.firstPage + 1; i <= ViewBag.Paginator.totalPages; i++)
+                                    {
+                                        <li><a asp-action="MyJobs" asp-route-id="@i"><span>@i</span></a></li>
+                                    }
+
+                                    <li><a asp-action="MyJobs" asp-route-id="@ViewBag.Paginator.nextPage"> <i class="ti-angle-right"></i> </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".js-delete-post").on("submit", function (e) {
+                e.preventDefault();
+
+                var link = $(e.target);
+                var token = link.find("input[name='__RequestVerificationToken'").val();
+                var id = link.attr("data-post-id");
+                var parent = link.parents("div.col-lg-12.col-md-12").parent();
+
+                console.log(token);
+                console.log(id);
+
+                
+
+                bootbox.dialog({
+                    title: 'Confirm',
+                    message: '<p>Are you sure you want to delete this post?</p>',
+                    size: 'large',
+                    onEscape: true,
+                    backdrop: false,
+                    buttons: {
+                        no: {
+                            label: 'No',
+                            className: 'btn-default',
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        yes: {
+                            label: 'Yes',
+                            className: 'btn-danger',
+                            callback: function () {
+                                $.ajax({
+                                    url: "/Api/Job/Delete/" + id,
+                                    method: "DELETE",
+                                    headers: { "X-CSRF-TOKEN": token }
+                                })
+                                    .done(function () {
+                                        link.parents("div.col-lg-12.col-md-12").remove();
+                                        if ($.trim(parent.html()) == '') {
+                                            parent.append('<div class="col-lg-12" style="text-align:center"> <h4>Your Bublished Jobs Will Appear Here.</h4> </div>');
+                                        }
+                                    })
+                                    .fail(function () {
+                                        alert("Something failed!");
+                                    });
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

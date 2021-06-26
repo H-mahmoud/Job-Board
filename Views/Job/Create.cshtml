@@ -1,0 +1,73 @@
+﻿@model Job_Board.ViewModel.CreateJobViewModel
+
+@{
+    ViewData["Title"] = "Post New Job";
+    ViewData["style"] = "background-color:rgba(0,29,56,0.8);";
+}
+
+<div class="featured_candidates_area candidate_page_padding" style="margin-top:5%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3"></div>
+            <div class="col-md-6 col-lg-6" style="background: white;padding: 30px;box-shadow: 0px 15px 12px 0px #cacaca;">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <h4 style="text-align:center;font-family: auto;font-size: 25px;margin: 0px;margin-bottom: 10px;">New Post</h4>
+                    <hr style="margin-bottom: 10px;">
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" placeholder="Title" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control" placeholder="Description"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Location" class="control-label"></label>
+                        <input asp-for="Location" class="form-control" placeholder="Location" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                    <div class="row" style="margin-bottom:16px;">
+                        <div class="col">
+                            <label asp-for="Vacancy" class="control-label"></label>
+                            <input asp-for="Vacancy" class="form-control" placeholder="Vacancy" />
+                            <span asp-validation-for="Vacancy" class="text-danger"></span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="Salary" class="control-label"></label>
+                            <input asp-for="Salary" class="form-control" placeholder="Salary" />
+                            <span asp-validation-for="Salary" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:16px;">
+                        <div class="col">
+                            <label asp-for="CategoryId" class="control-label"></label><br>
+                            <select class="form-select" asp-for="CategoryId" style="width:100%">
+                                <option data-display="Category"></option>
+                                @foreach (var category in ViewBag.Categories)
+                                {
+                                    <option value="@category.Id"> @category.Name </option>
+                                }
+                            </select><br>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+
+                        <div class="col">
+                            <label asp-for="JobNature" class="control-label"></label><br>
+                            <select class="form-select" asp-for="JobNature" style="width:100%">
+                                <option data-display="Job Nature"></option>
+                                <option value="1">Full time</option>
+                                <option value="2">Part time</option>
+                            </select>
+                            <span asp-validation-for="JobNature" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 30px;">
+                        <input type="submit" value="Post Job" class="btn btn-outline-success" style="width: 100%" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

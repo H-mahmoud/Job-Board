@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Job_Board.Models.JobModel>
+
+@{
+    ViewData["Title"] = "Jobs";
+}
+
+<!-- bradcam_area  -->
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h3>@ViewBag.TotalJobs+ Jobs Available</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+<!-- job_listing_area_start  -->
+<div class="job_listing_area plus_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="job_filter white-bg">
+                    <div class="form_inner white-bg">
+                        <h3>Filter</h3>
+                        <form asp-action="Search" method="get">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="single_field">
+                                        <input type="text" name="_search" placeholder="Search keyword">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="single_field" style="word-wrap:break-word;">
+                                        <select class="wide" name="_category">
+                                            <option data-display="Category"></option>
+                                            @for (int i = 0; i < ViewBag.Categories.Count; i++)
+                                            {
+                                                <option value="@ViewBag.Categories[i].Name">@ViewBag.Categories[i].Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="single_field">
+                                        <select class="wide" name="_jobnature">
+                                            <option data-display="Job Nature"></option>
+                                            <option value="1">Full time</option>
+                                            <option value="2">Part time</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reset_btn">
+                                <button class="boxed-btn3 w-100" type="submit">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="job_lists m-0">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-lg-12 col-md-12">
+                                <div class="single_jobs white-bg d-flex justify-content-between">
+                                    <div class="jobs_left d-flex align-items-center">
+                                        <div class="thumb" style="padding:0px;">
+                                            <img src="@item.Recruter.ProfilePicture" alt="" style="width: 80px; height: 80px;">
+                                        </div>
+                                        <div class="jobs_conetent">
+                                            <a href="/Job/Details/@item.Id"><h4>@item.Title.Substring(0, (item.Title.Length > 40? 40 : item.Title.Length))</h4></a>
+                                            <div class="links_locat d-flex align-items-center">
+                                                <div class="location">
+                                                    <p> <i class="fa fa-map-marker"></i> @item.Location</p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-list-alt"></i> @if (@item.Category != null)@item.Category.Name</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="jobs_right">
+                                        <div class="date" style="color:#AAB1B7;margin:0px;">
+                                            <p><i class="fa fa-calendar" style="margin-right:7px"></i> @item.PublishedAt.ToString("dd/mm/yyyy HH:mm") </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="pagination_wrap">
+                                <ul>
+                                    <li><a asp-action="Index" asp-route-id="@ViewBag.Paginator.prevPage"> <i class="ti-angle-left"></i> </a></li>
+                                    <li><a asp-action="Index" asp-route-id="@ViewBag.Paginator.firstPage"><span>@ViewBag.Paginator.firstPage</span></a></li>
+                                    @for (int i = ViewBag.Paginator.firstPage + 1; i <= ViewBag.Paginator.totalPages; i++)
+                                    {
+                                        <li><a asp-action="Index" asp-route-id="@i"><span>@i</span></a></li>
+                                    }
+                                    
+                                    <li><a asp-action="Index" asp-route-id="@ViewBag.Paginator.nextPage"> <i class="ti-angle-right"></i> </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

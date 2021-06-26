@@ -1,0 +1,61 @@
+﻿@model IEnumerable<UserJob>;
+
+@{
+    ViewData["Title"] = "Candidates";
+}
+
+<!-- bradcam_area  -->
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h3>@ViewBag.Job.Title</h3>
+                    <p class="wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".4s">@ViewBag.TotalCandidates Candidates</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+
+<!-- featured_candidates_area_start  -->
+<div class="featured_candidates_area candidate_page_padding">
+    <div class="container">
+        <div class="row">
+            @foreach (var user in Model)
+            {
+                <div class="col-md-6 col-lg-4" style="word-wrap: break-word;">
+                    <div class="single_candidates text-center">
+                        <div class="thumb">
+                            <img src="@user.User.ProfilePicture" alt="" style="height:110px;">
+                        </div>
+                        <a href="#"><h4>@user.User.FirstName @user.User.LastName</h4></a>
+                        <p>@user.User.JobTitle</p>
+                        <p>@user.User.Email</p>
+                        <p>@user.User.LinkedInUrl</p>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="pagination_wrap">
+                    <ul>
+                        <li><a href ="/Job/Candidates/@ViewBag.Job.Id?page=@ViewBag.Paginator.prevPage"> <i class="ti-angle-left"></i> </a></li>
+                        <li><a href ="/Job/Candidates/@ViewBag.Job.Id?page=@ViewBag.Paginator.firstPage"><span>@ViewBag.Paginator.firstPage</span></a></li>
+                        @for (int i = ViewBag.Paginator.firstPage + 1; i <= ViewBag.Paginator.totalPages; i++)
+                        {
+                            <li><a href ="/Job/Candidates/@ViewBag.Job.Id?page=@i"><span>@i</span></a></li>
+                        }
+
+                        <li><a href ="/Job/Candidates/@ViewBag.Job.Id?page=@ViewBag.Paginator.nextPage"> <i class="ti-angle-right"></i> </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- featured_candidates_area_end  -->

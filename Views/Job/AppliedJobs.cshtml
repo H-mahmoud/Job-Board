@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "Applied Jobs";
+    ViewData["style"] = "background-color:rgba(0,29,56,0.8);";
+}
+
+<!-- job_listing_area_start  -->
+<div class="job_listing_area plus_padding" style="margin-top:10%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="job_lists m-0">
+                    <div class="row">
+
+                        @foreach (var item in Model)
+                        {
+
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="single_jobs white-bg d-flex justify-content-between">
+                                    <div class="jobs_left d-flex align-items-center">
+                                        <div class="thumb" style="padding:0px;">
+                                            <img src="@item.Job.Recruter.ProfilePicture" alt="" style="width: 80px; height: 80px;">
+                                        </div>
+                                        <div class="jobs_conetent">
+                                            <a href="/Job/Details/@item.Job.Id"><h4>@item.Job.Title.Substring(0, (item.Job.Title.Length > 20 ? 20 : item.Job.Title.Length))</h4></a>
+                                            <div class="links_locat d-flex align-items-center">
+                                                <div class="location">
+                                                    <p> <i class="fa fa-map-marker"></i> @item.Job.Location</p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-clock-o"></i>@(item.Job.JobNature == Job_Board.Models.enums.JobNature.FullTime? "Full TIme": "Part TIme")</p>
+                                                </div>
+                                                <div class="location">
+                                                    <p> <i class="fa fa-list-alt"></i> @if (@item.Job.Category != null)@item.Job.Category.Name</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="jobs_right">
+                                        <div class="apply_now">
+                                            <a class="heart_mark" href="#"> <i class="fa fa-heart"></i> </a>
+                                            <a href="/Job/Details/@item.Job.Id" class="genric-btn success">Applied</a>
+                                        </div>
+                                        <div class="date" style="color: #AAB1B7;">
+                                            <p><i class="fa fa-calendar" style="margin-right:7px"></i> @item.Job.PublishedAt.ToString("dd/mm/yyyy HH:mm") </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="pagination_wrap">
+                                <ul>
+                                    <li><a asp-action="AppliedJobs" asp-route-id="@ViewBag.Paginator.prevPage"> <i class="ti-angle-left"></i> </a></li>
+                                    <li><a asp-action="AppliedJobs" asp-route-id="@ViewBag.Paginator.firstPage"><span>@ViewBag.Paginator.firstPage</span></a></li>
+                                    @for (int i = ViewBag.Paginator.firstPage + 1; i <= ViewBag.Paginator.totalPages; i++)
+                                    {
+                                        <li><a asp-action="AppliedJobs" asp-route-id="@i"><span>@i</span></a></li>
+                                    }
+
+                                    <li><a asp-action="AppliedJobs" asp-route-id="@ViewBag.Paginator.nextPage"> <i class="ti-angle-right"></i> </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

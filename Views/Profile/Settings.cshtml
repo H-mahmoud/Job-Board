@@ -1,0 +1,52 @@
+﻿@model Job_Board.ViewModel.SettingsViewModel
+
+@{
+    ViewData["Title"] = "Settings";
+    ViewData["style"] = "background-color:rgba(0,29,56,0.8);";
+}
+
+<div class="featured_candidates_area candidate_page_padding" style="margin-top:5%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3"></div>
+            <div class="col-md-6 col-lg-6" style="background: white;padding: 30px;box-shadow: 0px 15px 12px 0px #cacaca;">
+                <form asp-action="Settings" enctype="multipart/form-data">
+                    <h4 style="text-align:center;font-family: auto;font-size: 25px;margin: 0px;margin-bottom: 10px;">Settings</h4>
+                    <hr style="margin-bottom: 10px;">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row" style="margin-bottom:16px;">
+                        <div class="col">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <input asp-for="FirstName" class="form-control" value="@ViewBag.User.FirstName" placeholder="First name" />
+                            <span asp-validation-for="FirstName" class="text-danger" style="font-size:14px"></span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <input asp-for="LastName" class="form-control" value="@ViewBag.User.LastName" placeholder="Last name" />
+                            <span asp-validation-for="LastName" class="text-danger" style="font-size:14px"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="JobTitle" class="control-label"></label>
+                        <input asp-for="JobTitle" class="form-control" value="@ViewBag.User.JobTitle" placeholder="Job title" />
+                        <span asp-validation-for="JobTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LinkInUrl" class="control-label"></label>
+                        <input asp-for="LinkInUrl" class="form-control" value="@ViewBag.User.LinkedInUrl" placeholder="https://www.linkedin.com/in/Username/" />
+                        <span asp-validation-for="LinkInUrl" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProfilePicture" class="control-label"></label>
+                        <input asp-for="ProfilePicture" class="form-control-file" value="@ViewBag.User.ProfilePicture" />
+                        <a href="@ViewBag.User.ProfilePicture" style="font-size:10px;text-decoration: underline;color: #5252be;" target="_blank">@ViewBag.User.ProfilePicture</a><br>
+                        <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="margin-top: 30px;">
+                        <input type="submit" value="Save Changes" class="btn btn-outline-success" style="width: 100%" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

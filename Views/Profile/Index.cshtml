@@ -1,0 +1,29 @@
+﻿@model UserModel
+
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["style"] = "background-color:rgba(0,29,56,0.8);";
+}
+
+
+<div class="featured_candidates_area candidate_page_padding" style="margin-top:6%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3"></div>
+            <div class="col-md-6 col-lg-6">
+                <div class="single_candidates text-center" style="box-shadow:0px 15px 12px 0px #cacaca;">
+                    <div class="thumb">
+                        <img src="@Model.ProfilePicture" alt="" style="height:110px;">
+                    </div>
+                    <a href="#"><h4 style="margin-top:16px;">@Model.FirstName @Model.LastName</h4></a>
+                    <p>@Model.JobTitle</p>
+
+                    <hr style="border: 2px solid #F5F7FA;">
+                    <p style="text-align:left"><span><i class="fa fa-envelope"></i></span> @Model.Email</p>
+                    <p style="text-align:left"><span><i class="fa fa-linkedin"></i></span> <a href="@Model.LinkedInUrl">@Model.LinkedInUrl</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
