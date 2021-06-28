@@ -28,4 +28,4 @@ Job Board is a Web App built with Asp.net Core to open a new opportunity for dev
 ### API Endponts:
 #### Jobs
 - [GET] /API/Job
-- [GET] /Authors/{Id}
+- [GET] /API/Job/{Id}
