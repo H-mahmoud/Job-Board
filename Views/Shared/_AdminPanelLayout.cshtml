@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Job Board, @ViewData["Title"]</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <!-- CSS here -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/themify-icons.css">
+    <link rel="stylesheet" href="~/css/nice-select.css">
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/gijgo.css">
+    <link rel="stylesheet" href="~/css/animate.min.css">
+    <link rel="stylesheet" href="~/css/slicknav.css">
+
+    <link rel="stylesheet" href="~/css/style.css">
+    <style>
+        .dashboard-list a {
+            font-size: 17px;
+            width: 100%;
+        }
+
+            .dashboard-list a li {
+                color: white;
+                padding: 10px;
+                margin-bottom: 7px;
+                width: 100%;
+                display: none;
+            }
+
+                .dashboard-list a li span {
+                    color: #00D363;
+                    padding-right: 10px;
+                }
+
+            .dashboard-list a :hover {
+                background-color: rgb(128 128 128 / 40%);
+                animation-name:
+            }
+
+        .card {
+            display: none;
+        }
+
+        .job_lists {
+            display: none;
+        }
+
+        .single_catagory {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- header-start -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="height: 7%">
+        <a class="navbar-brand " href="#" style="font-family:fantasy;">Admin Panel.</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        </div>
+        <form style="margin-right: 25px;">
+            <a  href="/Account/Logout" class="btn btn-danger" type="submit">SIgn Out</a>
+        </form>
+    </nav>
+    <!-- header-end -->
+
+    <div class="container-fluid" style="height: auto;background: #F5F7FA;margin: 2px 0px 2px 0px; color: white;">
+        <div class="row" style="height: 100%">
+            <div class="col-lg-2" style="height: auto; background-color: #001d38; padding: 30px 12px;">
+                <ul class="dashboard-list">
+                    <a href="/Admin"><li><span class="fa fa-user-o" aria-hidden="true"></span>Dashboard</li></a>
+                    <a href="/Admin/PendingPosts"><li><span class="fa fa-sticky-note-o" aria-hidden="true"></span>Pending Posts</li></a>
+                    <a href="/Admin/Categories"><li><span class="fa fa-list" aria-hidden="true"></span>Categories</li></a>
+                </ul>
+            </div>
+            <div class="col-lg-10" style="height: auto">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- footer start -->
+    <footer class="footer" style="height: auto">
+        <div class="copy-right_text wow fadeInUp" data-wow-duration="1.4s" data-wow-delay=".3s" style=" padding: 10px;">
+            <div class="container">
+                <div class="footer_border"></div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="copy_right text-center">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/ footer end  -->
+    <!-- link that opens popup -->
+    <!-- JS here -->
+    <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="~/js/vendor/jquery-1.12.4.min.js"></script>
+
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/isotope.pkgd.min.js"></script>
+    <script src="~/js/jquery.counterup.min.js"></script>
+    <script src="~/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/js/wow.min.js"></script>
+    <script src="~/js/nice-select.min.js"></script>
+    <script src="~/js/jquery.slicknav.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+
+
+
+    <!--contact js-->
+    <script src="~/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/js/jquery.form.js"></script>
+    <script src="~/js/bootbox.js/bootbox.js"></script>
+
+    <script src="~/js/main.js"></script>
+
+    @RenderSection("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $(".dashboard-list a li").fadeIn(600);
+        })
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+</body>
+</html>

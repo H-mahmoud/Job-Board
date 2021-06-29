@@ -4,14 +4,16 @@ using Job_Board.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Job_Board.Migrations
 {
     [DbContext(typeof(JobBoardContext))]
-    partial class JobBoardContextModelSnapshot : ModelSnapshot
+    [Migration("20210629111138_modifyAcceptedColumn")]
+    partial class modifyAcceptedColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,6 +41,11 @@ namespace Job_Board.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool?>("Accepted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("0");
+
                     b.Property<string>("CategoryId")
                         .HasColumnType("nvarchar(450)");
 
@@ -46,11 +53,6 @@ namespace Job_Board.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<bool?>("IsAccepted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("0");
 
                     b.Property<int>("JobNature")
                         .HasColumnType("int");
@@ -133,21 +135,21 @@ namespace Job_Board.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "37f88515-ea21-4516-8906-66ddfcc8fdcb",
+                            ConcurrencyStamp = "96cb536d-16da-418d-85b4-10de38ee1600",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "9b0daaf1-a429-4d7d-b8b8-1a3fd5d28137",
+                            ConcurrencyStamp = "153e0939-fcdc-4207-a96d-7105d94aa34b",
                             Name = "Recruiter",
                             NormalizedName = "RECRUITER"
                         },
                         new
                         {
                             Id = "3",
-                            ConcurrencyStamp = "2c0c80d8-7cc9-41ab-9b7e-9688e07775e5",
+                            ConcurrencyStamp = "3c7eff6f-b0f3-458d-886e-9061e51f45e2",
                             Name = "Developer",
                             NormalizedName = "DEVELOPER"
                         });
@@ -367,11 +369,11 @@ namespace Job_Board.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "085b75cc-e227-41eb-aa45-b6720fc95557",
+                            ConcurrencyStamp = "b2dda1c4-4495-4df1-bf54-d1ddb44e0f41",
                             Email = "admin@jobboard.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAENKP0tNNMym331aL2dSNkW3ghHdZB0khjIeTVraXw+IgRCn1z8GGL8rf3nH25Dk1Rw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFZXyLNA1Fk00ZwAdjH8P9MwMYBw5Y+LTzpO8D0o0UD64/HKOClHsGmrrMDq7olqMg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,

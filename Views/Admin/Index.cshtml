@@ -1,0 +1,82 @@
+﻿@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row" style="margin: 20px 0px 20px 0px;">
+    <div class="col-lg-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header" style="border-bottom: 1px solid rgb(255 255 255)">Total Posts</div>
+            <div class="card-body" style="text-align: center;">
+                <span style="font-size: 50px;">@Model.TotalPosts +</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header" style="border-bottom: 1px solid rgb(255 255 255)">Pending Posts</div>
+            <div class="card-body" style="text-align: center;">
+                <span style="font-size: 50px;">@Model.TotalPending +</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header" style="border-bottom: 1px solid rgb(255 255 255)">Registered Users</div>
+            <div class="card-body" style="text-align: center;">
+                <span style="font-size: 50px;">@Model.TotalUsers +</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin: 60px 0px;">
+    <div class="job_listing_area col-lg-12" style="padding: 0px;">
+        <h3>Recent Posts</h3>
+        <div class="job_lists m-0">
+            <div class="row">
+                @foreach (var item in Model.RecentPosts)
+                {
+                <div class="col-lg-12 col-md-12">
+                    <div class="single_jobs white-bg d-flex justify-content-between">
+                        <div class="jobs_left d-flex align-items-center">
+                            <div class="thumb" style="padding:0px;">
+                                <img src="@item.Recruter.ProfilePicture" alt="" style="width: 80px; height: 80px;">
+                            </div>
+                            <div class="jobs_conetent">
+                                <a href="/Job/Details/@item.Id"><h4>@item.Title.Substring(0, (item.Title.Length > 50 ? 50 : item.Title.Length))</h4></a>
+                                <div class="links_locat d-flex align-items-center">
+                                    <div class="location">
+                                        <p> <i class="fa fa-map-marker"></i> @item.Location</p>
+                                    </div>
+                                    <div class="location">
+                                        <p> <i class="fa fa-clock-o"></i> @(item.JobNature == Job_Board.Models.enums.JobNature.FullTime? "Full TIme": "Part TIme")</p>
+                                    </div>
+                                    <div class="location">
+                                        <p> <i class="fa fa-list-alt"></i> @if (@item.Category != null)@item.Category</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jobs_right">
+                            <div class="date" style="color:#AAB1B7;margin:0px;">
+                                <p><i class="fa fa-calendar" style="margin-right:7px"></i> @item.PublishedAt.ToString("dd/mm/yyyy HH:mm") </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".card").fadeIn(600);
+            $(".job_lists").fadeIn(600);
+        })
+    </script>
+
+}

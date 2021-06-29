@@ -29,6 +29,10 @@ namespace Job_Board.Models.Configuration
                 .HasDefaultValueSql("getdate()")
                 .ValueGeneratedOnAdd();
 
+            builder.Property(p => p.IsAccepted)
+                .HasDefaultValueSql("0")
+                .ValueGeneratedOnAdd();
+
             builder.Property(p => p.Vacancy)
                 .IsRequired();
 

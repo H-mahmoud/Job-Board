@@ -83,7 +83,6 @@ C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\Pr
 C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\Shared\_Authentication.cshtml.g.cs
 C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
-C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Job-Board.RazorTargetAssemblyInfo.cs
@@ -99,3 +98,9 @@ C:\Users\Hassan\source\repos\Job-Board\Job-Board\bin\Debug\net5.0\Swashbuckle.As
 C:\Users\Hassan\source\repos\Job-Board\Job-Board\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Hassan\source\repos\Job-Board\Job-Board\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Job-Board.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\Admin\Index.cshtml.g.cs
+C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\Shared\_AdminPanelLayout.cshtml.g.cs
+C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\Admin\_ViewStart.cshtml.g.cs
+C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\Admin\Categories.cshtml.g.cs
+C:\Users\Hassan\source\repos\Job-Board\Job-Board\obj\Debug\net5.0\Razor\Views\Admin\PendingPosts.cshtml.g.cs

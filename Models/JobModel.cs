@@ -15,6 +15,7 @@ namespace Job_Board.Models
         public int Vacancy { get; set; }
         public double Salary { get; set; }
         public JobNature JobNature { get; set; }
+        public bool? IsAccepted { get; set; }
 
         public string? CategoryId { get; set; }
         public virtual CategoryModel Category { get; set; }

@@ -1,0 +1,101 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Categories";
+}
+<div class="row" style="margin: 60px 0px;">
+    <div class="popular_catagory_area" style="padding: 0px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section_title mb-40">
+                        <h3>Categories</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 4%;">
+                <div class="col-lg-12">
+                    <div class="job_filter white-bg" style="padding: 30px 20px 30px 20px;">
+                        <div class="form_inner white-bg">
+                            <form action="#">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="single_field">
+                                            <input type="text" placeholder="Add New Category" class="form-control" style="width: 100%;height: 60px;margin-bottom: 20px;">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="reset_btn">
+                                    <button class="boxed-btn3 w-100" type="submit">ADD</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory">
+                        <a href="jobs.html"><h4>Design & Creative</h4></a>
+                        <p> <span>50</span> Available position</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory">
+                        <a href="jobs.html"><h4>Marketing</h4></a>
+                        <p> <span>50</span> Available position</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory">
+                        <a href="jobs.html"><h4>Telemarketing</h4></a>
+                        <p> <span>50</span> Available position</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory">
+                        <a href="jobs.html"><h4>Software & Web</h4></a>
+                        <p> <span>50</span> Available position</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory">
+                        <a href="jobs.html"><h4>Administration</h4></a>
+                        <p> <span>50</span> Available position</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory">
+                        <a href="jobs.html"><h4>Teaching & Education</h4></a>
+                        <p> <span>50</span> Available position</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory">
+                        <a href="jobs.html"><h4>Engineering</h4></a>
+                        <p> <span>50</span> Available position</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-3 col-md-6">
+                    <div class="single_catagory">
+                        <a href="jobs.html"><h4>Garments / Textile</h4></a>
+                        <p> <span>50</span> Available position</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".single_catagory").fadeIn(600);  
+        })
+    </script>
+
+}

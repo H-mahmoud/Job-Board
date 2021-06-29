@@ -45,7 +45,7 @@ namespace Job_Board.Controllers
 
         #region Methods
 
-        // GET: Home/Login
+        // GET: Account/Login
         public IActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
@@ -53,8 +53,8 @@ namespace Job_Board.Controllers
             return View();
         }
 
-        // POST: Home/Login
-        // POST: Home/Login?returnUrl=url
+        // POST: Account/Login
+        // POST: Account/Login?returnUrl=url
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string returnUrl, LoginViewModel model)
@@ -102,7 +102,7 @@ namespace Job_Board.Controllers
             return View(model);
         }
 
-        // GET: Home/Register
+        // GET: Account/Register
         public IActionResult Register()
         {
             if (User.Identity.IsAuthenticated)
@@ -110,7 +110,7 @@ namespace Job_Board.Controllers
             return View();
         }
 
-        // POST: Home/Register
+        // POST: Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -158,7 +158,7 @@ namespace Job_Board.Controllers
         }
 
 
-        // GET: Home/ConfirmEmail?token=value&email=value
+        // GET: Account/ConfirmEmail?token=value&email=value
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
             if (User.Identity.IsAuthenticated)
@@ -177,7 +177,7 @@ namespace Job_Board.Controllers
             return View("Verify");
         }
 
-        // GET: Home/ForgetPassword
+        // GET: Account/ForgetPassword
         public IActionResult ForgetPassword()
         {
             if (User.Identity.IsAuthenticated)
@@ -186,7 +186,7 @@ namespace Job_Board.Controllers
             return View();
         }
 
-        // POST: Home/ForgetPassword
+        // POST: Account/ForgetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgetPassword(ForgetPasswordViewModel model)
@@ -217,7 +217,7 @@ namespace Job_Board.Controllers
             return View();
         }
 
-        // GET: Home/ResetPassword?token=value&email=value
+        // GET: Account/ResetPassword?token=value&email=value
         public IActionResult ResetPassword(string token, string email)
         {
             if (User.Identity.IsAuthenticated)
@@ -228,7 +228,7 @@ namespace Job_Board.Controllers
             return View();
         }
 
-        // POST: Home/ResetPassword
+        // POST: Account/ResetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
@@ -270,7 +270,7 @@ namespace Job_Board.Controllers
             return View("Verify");
         }
 
-        // GET: Home/Logout
+        // GET: Account/Logout
         [Authorize]
         public async Task<IActionResult> Logout()
         {

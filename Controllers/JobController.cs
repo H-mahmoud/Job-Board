@@ -51,7 +51,8 @@ namespace Job_Board.Controllers
             int skip = (id - 1) * PageSize;
             int take = PageSize;
 
-            var pageOfResults = _context.jobs.OrderByDescending(z => z.PublishedAt).Skip(skip).Take(take).
+            // to show old posts with null value
+            var pageOfResults = _context.jobs.Where(x => x.IsAccepted != false).OrderByDescending(z => z.PublishedAt).Skip(skip).Take(take).
                 Include(x => x.Category).Include(y => y.Recruter).
                 ToList();
 
@@ -71,7 +72,8 @@ namespace Job_Board.Controllers
         // GET: JobController/Details/JobId
         public ActionResult Details(string id)
         {
-            var jobs = _context.jobs.Where(z => z.Id == id)
+            // to show details of old posts with null value
+            var jobs = _context.jobs.Where(z => z.Id == id && z.IsAccepted != false)
                 .Include(x => x.Category)
                 .Include(t => t.Recruter)
                 .FirstOrDefault();
@@ -95,7 +97,9 @@ namespace Job_Board.Controllers
 
             JobNature JobType = (JobNature)Enum.Parse(typeof(JobNature), _jobnature.ToString());
 
+            // to show old posts with null value
             var pageOfResults = _context.jobs
+                .Where(x => x.IsAccepted != false)
                 .Where(z => (_search != null && z.Title.Contains(_search)) || (_search == null))
                 .Where(z => (_jobnature != 0 && z.JobNature == JobType) || (_jobnature == 0))
                 .Where(z => (_category != null && z.Category.Name == _category) || (_category == null))
@@ -104,7 +108,12 @@ namespace Job_Board.Controllers
                 .Include(x => x.Category)
                 .Include(t => t.Recruter).ToList();
 
-            var count = _context.jobs.Count();
+            // to show old posts with null value
+            var count = _context.jobs
+                .Where(x => x.IsAccepted != false)
+                .Where(z => (_search != null && z.Title.Contains(_search)) || (_search == null))
+                .Where(z => (_jobnature != 0 && z.JobNature == JobType) || (_jobnature == 0))
+                .Where(z => (_category != null && z.Category.Name == _category) || (_category == null)).Count();
 
             ViewBag.SearchKey = _search;
             ViewBag.JobNature = _jobnature;
@@ -182,7 +191,7 @@ namespace Job_Board.Controllers
         {
             
             string UserId = _usermanager.GetUserId(User);
-            JobModel job = _context.jobs.Where(x => x.Id == _id).FirstOrDefault();
+            JobModel job = _context.jobs.Where(x => x.Id == _id && x.IsAccepted != false).FirstOrDefault();
 
             if (job == null)
                 return RedirectToAction("NotFound", "Home");

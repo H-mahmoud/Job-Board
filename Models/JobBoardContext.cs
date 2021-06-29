@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Job_Board.Models
 {
@@ -27,17 +29,28 @@ namespace Job_Board.Models
             modelBuilder.ApplyConfiguration(new UserJobConfiguration());
 
 
-            modelBuilder.Entity<CategoryModel>().HasData(
-                new { Id = Guid.NewGuid().ToString(), Name = "Android Developer" },
-                new { Id = Guid.NewGuid().ToString(), Name = "IOS Developer" },
-                new { Id = Guid.NewGuid().ToString(), Name = "Web Developer" });
-
 
             modelBuilder.Entity<IdentityRole>().HasData(
-                    new IdentityRole { Name = "Recruiter", NormalizedName = "RECRUITER" },
-                    new IdentityRole { Name = "Developer", NormalizedName = "DEVELOPER" }
+                    new IdentityRole { Id = "1", Name = "Admin", NormalizedName = "ADMIN" },
+                    new IdentityRole { Id = "2", Name = "Recruiter", NormalizedName = "RECRUITER" },
+                    new IdentityRole { Id = "3", Name = "Developer", NormalizedName = "DEVELOPER" }
                 );
 
+
+            var hasher = new PasswordHasher<UserModel>();
+            modelBuilder.Entity<UserModel>().HasData(
+                    new UserModel { Id = "1", UserName = "Admin", Email = "admin@jobboard.com", EmailConfirmed = true,
+                        FirstName = "Hassan", LastName = "Admin",
+                        PasswordHash = hasher.HashPassword(null, "AdminJobBoard@"),
+                        SecurityStamp = string.Empty
+                    }
+                );
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = "1",
+                UserId = "1"
+            });
 
             base.OnModelCreating(modelBuilder);
         }

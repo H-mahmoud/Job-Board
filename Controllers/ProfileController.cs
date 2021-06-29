@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Job_Board.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Recruiter,Developer")]
     public class ProfileController : Controller
     {
         #region Properties
