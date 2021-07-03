@@ -9,8 +9,12 @@ Job Board is a Web App built with Asp.net Core to open a new opportunity for dev
 - User can search for a job by Title, Category and/or Job Nature 
 - Authenticated Users can update their profile information 
 
+#### Admin:
+- Accept or remove Pending Posts
+- Create new Categories
+
 #### Recruiter:
-- Post a new job
+- Post a new job (Defualt status is pending)
 - Delete his posted jobs
 - View the information of job Candidates
 - View his Posted Jobs
