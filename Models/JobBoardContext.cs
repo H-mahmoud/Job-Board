@@ -42,7 +42,9 @@ namespace Job_Board.Models
                     new UserModel { Id = "1", UserName = "Admin", Email = "admin@jobboard.com", EmailConfirmed = true,
                         FirstName = "Hassan", LastName = "Admin",
                         PasswordHash = hasher.HashPassword(null, "AdminJobBoard@"),
-                        SecurityStamp = string.Empty
+                        SecurityStamp = string.Empty,
+                        NormalizedEmail = "ADMIN@JOBBOARD.COM",
+                        NormalizedUserName = "ADMIN"
                     }
                 );
 

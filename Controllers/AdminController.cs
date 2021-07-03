@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Job_Board.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         #region Properties
@@ -57,13 +57,25 @@ namespace Job_Board.Controllers
         // GET: Admin/PendingPosts
         public IActionResult PendingPosts()
         {
-            return View();
+            var jobs = _context.jobs.Where(x => x.IsAccepted == false)
+                .Include(x => x.Recruter)
+                .Include(x => x.Category)
+                .ToList();
+
+            return View(jobs);
         }
 
         // GET: Admin/Categories
         public IActionResult Categories()
         {
-            return View();
+            IEnumerable<PopolarCategoriesViewModel> Categories = _context.Categories
+                                .Select(s => new PopolarCategoriesViewModel
+                                {
+                                    Name = s.Name,
+                                    Count = s.jobs.Count()
+                                })
+                                .ToList();
+            return View(Categories.Reverse());
         }
         #endregion
     }

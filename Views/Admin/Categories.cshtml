@@ -1,12 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<PopolarCategoriesViewModel>
 @{
     ViewData["Title"] = "Categories";
 }
 <div class="row" style="margin: 60px 0px;">
-    <div class="popular_catagory_area" style="padding: 0px;">
-        <div class="container">
+    <div class="popular_catagory_area col-lg-12" style="padding: 0px;">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section_title mb-40">
@@ -19,7 +17,7 @@
                 <div class="col-lg-12">
                     <div class="job_filter white-bg" style="padding: 30px 20px 30px 20px;">
                         <div class="form_inner white-bg">
-                            <form action="#">
+                            <form action="/Admin/Categories" method="post">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="single_field">
@@ -27,10 +25,8 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="reset_btn">
-                                    <button class="boxed-btn3 w-100" type="submit">ADD</button>
-                                </div>
+                                @Html.AntiForgeryToken()
+                                <button class="boxed-btn3 w-100" type="submit">ADD</button>
                             </form>
                         </div>
                     </div>
@@ -38,54 +34,14 @@
             </div>
 
             <div class="row">
+                @foreach (var item in Model) { 
                 <div class="col-lg-4 col-xl-3 col-md-6">
                     <div class="single_catagory">
-                        <a href="jobs.html"><h4>Design & Creative</h4></a>
-                        <p> <span>50</span> Available position</p>
+                        <a href="href="/Job/Search?_category=@item.Name""><h4>@item.Name</h4></a>
+                        <p> <span>@item.Count</span> Available position</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Marketing</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Telemarketing</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Software & Web</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Administration</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Teaching & Education</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Engineering</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xl-3 col-md-6">
-                    <div class="single_catagory">
-                        <a href="jobs.html"><h4>Garments / Textile</h4></a>
-                        <p> <span>50</span> Available position</p>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
@@ -95,6 +51,36 @@
     <script>
         $(document).ready(function () {
             $(".single_catagory").fadeIn(600);  
+            $("form").on("submit", function (e) {
+                e.preventDefault();
+                $("form .form-control").select();
+                var name = $("form .form-control").val();
+                var token = $("form input[name='__RequestVerificationToken']").val();
+                var container = $(".categories-container");
+                var Category = '<div class="col-lg-4 col-xl-3 col-md-6"><div class="single_catagory"><h4>' + name + '</h4><p> <span>0</span> Available position</p></div></div>';
+
+                console.log(name);
+                console.log(token);
+
+                $.ajax({
+                    url: "/Api/Category",
+                    method: "POST",
+                    headers: { "X-CSRF-TOKEN": token },
+                    data: { "Name": name },
+                    success: function (data, status) {
+                        console.log(status)
+                        console.log(Category)
+                        console.log(container)
+                        container.append(Category);
+                    },
+                    error: function (data, status, fx) {
+                        alert("Failed");
+                        console.log(status);
+                    }
+                });
+
+
+            })
         })
     </script>
 

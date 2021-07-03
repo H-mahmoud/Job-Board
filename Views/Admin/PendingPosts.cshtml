@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<JobModel>
 @{
     ViewData["Title"] = "Pending Posts";
 }
@@ -10,35 +8,43 @@
         <h3>Pending Posts</h3>
         <div class="job_lists m-0">
             <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <div class="single_jobs white-bg d-flex justify-content-between">
-                        <div class="jobs_left d-flex align-items-center">
-                            <div class="thumb">
-                                <img src="img/svg_icon/1.svg" alt="">
-                            </div>
-                            <div class="jobs_conetent">
-                                <a href="job_details.html"><h4>Software Engineer</h4></a>
-                                <div class="links_locat d-flex align-items-center">
-                                    <div class="location">
-                                        <p> <i class="fa fa-map-marker"></i> California, USA</p>
-                                    </div>
-                                    <div class="location">
-                                        <p> <i class="fa fa-clock-o"></i> Part-time</p>
+                @Html.AntiForgeryToken()
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-12 col-md-12">
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                            <div class="jobs_left d-flex align-items-center">
+                                <div class="thumb" style="padding:0px;">
+                                    <img src="@item.Recruter.ProfilePicture" alt="" style="width: 80px; height: 80px;">
+                                </div>
+                                <div class="jobs_conetent">
+                                    <a href="/Job/Details/@item.Id"><h4>@item.Title.Substring(0, (item.Title.Length > 40 ? 40 : item.Title.Length))</h4></a>
+                                    <div class="links_locat d-flex align-items-center">
+                                        <div class="location">
+                                            <p> <i class="fa fa-map-marker"></i> @item.Location</p>
+                                        </div>
+                                        <div class="location">
+                                            <p> <i class="fa fa-clock-o"></i> @(item.JobNature == Job_Board.Models.enums.JobNature.FullTime? "Full TIme": "Part TIme")</p>
+                                        </div>
+                                        <div class="location">
+                                            <p> <i class="fa fa-list-alt"></i> @if (@item.Category != null)@item.Category.Name</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="jobs_right">
-                            <div class="apply_now">
-                                <a href="job_details.html" class="boxed-btn2">Remove</a>
-                                <a href="job_details.html" class="boxed-btn4">Accept</a>
-                            </div>
-                            <div class="date">
-                                <p>Date line: 31 Jan 2020</p>
+                            <div class="jobs_right">
+                                <div class="apply_now">
+                                    <button class="boxed-btn2 remove" data-post-id="@item.Id">Remove</button>
+                                    <button class="boxed-btn4 accept" data-post-id="@item.Id">Accept</button>
+                                </div>
+                                <div class="date">
+                                    <p><i class="fa fa-calendar" style="margin-right:7px"></i> @item.PublishedAt.ToString("dd/mm/yyyy HH:mm") </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
+
             </div>
 
             <div class="row">
@@ -47,7 +53,6 @@
                         <ul>
                             <li><a href="#"> <i class="ti-angle-left"></i> </a></li>
                             <li><a href="#"><span>01</span></a></li>
-                            <li><a href="#"><span>02</span></a></li>
                             <li><a href="#"> <i class="ti-angle-right"></i> </a></li>
                         </ul>
                     </div>
@@ -61,6 +66,103 @@
     <script>
         $(document).ready(function () {
             $(".job_lists").fadeIn(600);
+
+            $(".remove").on("click", function (e) {
+                e.preventDefault();
+
+                var link = $(e.target);
+                var token = $("input[name='__RequestVerificationToken'").val();
+                var id = link.attr("data-post-id");
+                var parent = link.parents("div.col-lg-12.col-md-12").parent();
+
+                console.log(token);
+                console.log(id);
+
+                bootbox.dialog({
+                    title: 'Confirm',
+                    message: '<p>Are you sure you want to remove this post?</p>',
+                    size: 'large',
+                    onEscape: true,
+                    backdrop: false,
+                    buttons: {
+                        no: {
+                            label: 'No',
+                            className: 'btn-default',
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        yes: {
+                            label: 'Yes',
+                            className: 'btn-danger',
+                            callback: function () {
+                                $.ajax({
+                                    url: "/Api/Job/Delete/" + id,
+                                    method: "DELETE",
+                                    headers: { "X-CSRF-TOKEN": token }
+                                })
+                                    .done(function () {
+                                        link.parents("div.col-lg-12.col-md-12").remove();
+                                        if ($.trim(parent.html()) == '') {
+                                            parent.append('<div class="col-lg-12" style="text-align:center"> <h4>Pending Jobs Will Appear Here.</h4> </div>');
+                                        }
+                                    })
+                                    .fail(function () {
+                                        alert("Something failed!");
+                                    });
+                            }
+                        }
+                    }
+                });
+            });
+            $(".accept").on("click", function (e) {
+                e.preventDefault();
+
+                var link = $(e.target);
+                var token = $("input[name='__RequestVerificationToken'").val();
+                var id = link.attr("data-post-id");
+                var parent = link.parents("div.col-lg-12.col-md-12").parent();
+
+                console.log(token);
+                console.log(id);
+
+                bootbox.dialog({
+                    title: 'Confirm',
+                    message: '<p>Are you sure you want to Accept this post?</p>',
+                    size: 'large',
+                    onEscape: true,
+                    backdrop: false,
+                    buttons: {
+                        no: {
+                            label: 'No',
+                            className: 'btn-default',
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        yes: {
+                            label: 'Yes',
+                            className: 'btn-danger',
+                            callback: function () {
+                                $.ajax({
+                                    url: "/Api/Job/Accept/" + id,
+                                    method: "PUT",
+                                    headers: { "X-CSRF-TOKEN": token }
+                                })
+                                    .done(function () {
+                                        link.parents("div.col-lg-12.col-md-12").remove();
+                                        if ($.trim(parent.html()) == '') {
+                                            parent.append('<div class="col-lg-12" style="text-align:center"> <h4>Pending Jobs Will Appear Here.</h4> </div>');
+                                        }
+                                    })
+                                    .fail(function () {
+                                        alert("Something failed!");
+                                    });
+                            }
+                        }
+                    }
+                });
+            });
         })
     </script>
 

@@ -78,21 +78,51 @@ namespace Job_Board.Controllers.Api
 
         // DELETE: Api/JobController/ConfirmDelete/JobId
         [HttpDelete("Delete/{Id}")]
-        [Authorize(Roles = "Recruiter")]
+        [Authorize(Roles = "Recruiter,Admin")]
         [ValidateAntiForgeryToken]
         [ApiExplorerSettings(IgnoreApi = true)]
         public ActionResult Delete(string id)
         {
             try 
             {
-                string UserId = _usermanager.GetUserId(User);
-                var job = _context.jobs.Where(x => x.RecruterId == UserId && x.Id == id)
-                                        .FirstOrDefault();
+                if (User.IsInRole("Admin")) {
+                    var job = _context.jobs.Where(x => x.Id == id)
+                                            .FirstOrDefault();
+                    _context.jobs.Remove(job);
+                }
+                else {
+                    string UserId = _usermanager.GetUserId(User);
+                    var job = _context.jobs.Where(x => x.RecruterId == UserId && x.Id == id)
+                                            .FirstOrDefault();
+                    _context.jobs.Remove(job);
+                }
 
-                _context.jobs.Remove(job);
                 _context.SaveChanges();
             }
             catch(Exception e)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
+        // Get: Api/JobController/ConfirmDelete/JobId
+        [HttpPut("Accept/{Id}")]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public ActionResult Accept(string id)
+        {
+            try
+            {
+                var job = _context.jobs.Where(x => x.Id == id)
+                                            .FirstOrDefault();
+                job.IsAccepted = true;
+
+                _context.SaveChanges();
+            }
+            catch (Exception e)
             {
                 return BadRequest();
             }

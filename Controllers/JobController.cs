@@ -230,7 +230,8 @@ namespace Job_Board.Controllers
                                     Location = s.Location,
                                     PublishedAt = s.PublishedAt,
                                     ProfilePicture = s.Recruter.ProfilePicture,
-                                    Count = _context.Candidates.Where(x => x.JobId == s.Id).Count()
+                                    Count = _context.Candidates.Where(x => x.JobId == s.Id).Count(),
+                                    IsAccepted = s.IsAccepted
                                 })
                                 .Skip(skip).Take(take)
                                 .ToList();

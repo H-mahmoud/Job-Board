@@ -50,6 +50,7 @@ namespace Job_Board.ViewModel
         public DateTime PublishedAt { get; set; }
         public string ProfilePicture { get; set; }
         public int Count { get; set; }
+        public bool? IsAccepted { get; set; }
     }
 
     public class ApplyViewModel {

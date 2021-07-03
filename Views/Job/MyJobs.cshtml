@@ -46,12 +46,19 @@
                                     </div>
                                     <div class="jobs_right">
                                         <div class="apply_now row">
-                                            <form asp-action="apply" class="js-delete-post" data-post-id="@item.Id" style="margin-right:5px;">
-                                                <button type="submit" class="boxed-btn2" style="color:white;"> <i class="fa fa-trash-o"></i></button>
-                                            </form>
-                                            <form>
-                                                <a href="/Job/Candidates/@item.Id" class="boxed-btn4">Candidates</a>
-                                            </form>
+                                            @if (item.IsAccepted != false)
+                                            {
+
+                                                <form asp-action="apply" class="js-delete-post" data-post-id="@item.Id" style="margin-right:5px;">
+                                                    <button type="submit" class="boxed-btn2" style="color:white;"> <i class="fa fa-trash-o"></i></button>
+                                                </form>
+                                                <form>
+                                                    <a href="/Job/Candidates/@item.Id" class="boxed-btn4">Candidates</a>
+                                                </form>
+                                            }
+                                            else { 
+                                                <a href="/Job/Candidates/@item.Id" class="boxed-btn1" style="margin-left:20px;">Pending</a>
+                                            }
                                         </div>
                                         <div class="date" style="color: #AAB1B7;">
                                             <p><i class="fa fa-calendar" style="margin-right:7px"></i> @item.PublishedAt.ToString("dd/mm/yyyy HH:mm") </p>
