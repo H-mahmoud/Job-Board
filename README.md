@@ -25,11 +25,20 @@ Job Board is a Web App built with Asp.net Core to open a new opportunity for dev
 
 <hr>
 
-* I am using MailJet to send emails to users
-
-<hr>
-
 ### API Endponts:
 #### Jobs
 - [GET] /API/Job
 - [GET] /API/Job/{Id}
+
+<hr>
+
+### Technologies:
+- ASP.NET Core
+- Entity Framework Core
+- Microsoft Identity
+- JQuery
+- AJAX
+- Web API
+- Microsoft SQL Server
+- Mail Service (MailJet)
+
